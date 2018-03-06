@@ -1,7 +1,16 @@
+set encoding=utf-8
 "Following vimrc uses pathogen + syntastic + flake8. This needs to be
 "installed before you can use this vimrc. This configuration does not contain
 "any themes or color configuration.
 execute pathogen#infect()
+
+
+"Tabs are shown as > followed by a stream of - characters. Number of - depends
+"on how many spaces a tab should be defined per tabstop setting. 
+"Trailing whitespace is shown as .
+"Set list is needed for configuration to work
+set listchars=tab:>-,trail:·
+set list
 
 "Use syntax highlighting
 syntax on
@@ -56,14 +65,21 @@ let g:syntastic_check_on_wq = 0
 "Use flake8 as your python lint
 let g:syntastic_python_checkers = ['flake8']
 
+"Puppet lint
+let g:syntastic_puppet_checkers=['puppetlint']
+
 "Highlight the ligne at length 80. PEP8 E501 defines that the maximum line
 "length in python should be 79. This is a way to easy see when the line is too
 "long.
-set colorcolumn=80
+"set colorcolumn=80
+
+"Custom ErrorMsg matches (Trailing whitespace + lines ofer 120)
+match ErrorMsg '\s\+$'
+"match ErrorMsg '\%>120v.\+'
 
 "Uncomment the row below if you want to ignore E501 errors. Note E501 should
 "be followed, but you may ignore it in scenarios where it fits (Like URLs)
-"let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 "For specified fileending, use specified indention settings
 au BufNewFile,BufRead *.py
@@ -86,3 +102,32 @@ au BufNewFile,BufRead *.sh
     \ set shiftwidth=2 |
     \ set expandtab |
     \ set autoindent |
+
+autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
+"Remap < and > to <gv and >gv (Indent and stay highlighted)
+vnoremap < <gv
+vnoremap > >gv
+
+"Change settings for netrw
+"let g:netrw_liststyle = 3
+"let g:netrw_banner = 0
+
+"Change which window files will be opened (Default is same window as netrw)
+" 1 new horizontal split
+" 2 new vertical split
+" 3 open in new tab
+" 4 open in previous window
+"let g:netrw_browse_split = 4
+
+"NERDtree like setup for netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 3
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+"Automatically open netrw when starting vim
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
