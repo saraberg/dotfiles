@@ -5,15 +5,22 @@ set encoding=utf-8
 execute pathogen#infect()
 
 
+syntax on
+"Italics do not play nice with iTerm2
+let g:dracula_italic = 0
+colorscheme dracula
+
+"Solarized
+"set background=light
+"colorscheme solarized
+
 "Tabs are shown as > followed by a stream of - characters. Number of - depends
-"on how many spaces a tab should be defined per tabstop setting. 
+"on how many spaces a tab should be defined per tabstop setting.
 "Trailing whitespace is shown as .
 "Set list is needed for configuration to work
 set listchars=tab:>-,trail:·
 set list
 
-"Use syntax highlighting
-syntax on
 
 "Highlight the cursorline in vim
 set cursorline
@@ -64,9 +71,6 @@ let g:syntastic_check_on_wq = 0
 
 "Use flake8 as your python lint
 let g:syntastic_python_checkers = ['flake8']
-
-"Puppet lint
-let g:syntastic_puppet_checkers=['puppetlint']
 
 "Highlight the ligne at length 80. PEP8 E501 defines that the maximum line
 "length in python should be 79. This is a way to easy see when the line is too
